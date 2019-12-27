@@ -1,0 +1,10 @@
+- name: Install Docker Engine - Community
+  become: yes
+  hosts: docker
+
+  tasks:
+    - include_role:
+        name: aeternuss.docker
+      vars:
+        DOCKER_USER: "{{ docker_user }}"
+        DOCKER_COMPOSE_VERSION: "{{ docker_compose_version }}"

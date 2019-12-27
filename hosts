@@ -1,0 +1,9 @@
+[all:vars]
+ansible_user=ansible
+
+[docker]
+jenkins         ansible_host=jenkins
+jenkins_slave1  ansible_host=jenkins_slave1
+
+[jenkins_slave]
+jenkins_slave1  ansible_host=jenkins_slave1

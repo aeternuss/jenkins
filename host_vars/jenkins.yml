@@ -1,0 +1,5 @@
+# jenkins
+jenkins_version: "1.21.0"
+jenkins_port_http: "8081"
+# agent port must be 50000
+jenkins_volume_data: "/opt/docker/jenkins/data"

@@ -1,0 +1,5 @@
+jenkins_url: "http://jenkins:{{ jenkins_port_http }}"
+
+jenkins_slave_image: "aeternuss/jnlp-slave:1.2-alpine"
+jenkins_slave_agent_name: "{{ inventory_hostname }}"
+jenkins_slave_volume_workdir: "/opt/docker/jenkins-slave/agent"

@@ -1,0 +1,26 @@
+## Run Jenkins slave
+- name: Run Jenkins JNLP slave
+  hosts: jenkins_slave
+
+  tasks:
+    - name: Include Jenkins Information
+      include_vars:
+        file: host_vars/jenkins.yml
+    
+    - name: Run jnlp-slave
+      become: yes
+      become_user: "{{ docker_user }}"
+      docker_container:
+        name: jenkins-slave
+        image: "{{ jenkins_slave_image }}"
+        restart_policy: always
+        user: root
+        env:
+          TZ: Asia/Shanghai
+          JENKINS_URL: "{{ jenkins_url }}"
+          JENKINS_SECRET: "{{ jenkins_secret }}"
+          JENKINS_AGENT_NAME: "{{ jenkins_slave_agent_name }}"
+          JENKINS_AGENT_WORKDIR: /home/jenkins/agent
+        volumes:
+          - "{{ jenkins_slave_volume_workdir }}:/home/jenkins/agent"
+          - /var/run/docker.sock:/var/run/docker.sock

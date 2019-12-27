@@ -1,0 +1,29 @@
+- name: Run Jenkins
+  hosts: jenkins
+
+## Jenkins run as user 'jenkins' in docker
+##     id=1000(jenkins) gid=1000(jenkins)
+  tasks:
+    - name: Create volume directory
+      become: yes
+      file:
+        path: "{{ jenkins_volume_data }}"
+        state: directory
+        owner: "{{ docker_user }}"
+        group: "1000"
+        mode: "0770"
+  
+    - name: Run jenkins Docker Container
+      become: yes
+      become_user: "{{ docker_user }}"
+      docker_container:
+        name: jenkins
+        image: "jenkinsci/blueocean:{{ jenkins_version }}"
+        restart_policy: always
+        env:
+          TZ: Asia/Shanghai
+        ports:
+          - "{{ jenkins_port_http }}:8080"
+          - "50000:50000"
+        volumes:
+          - "{{ jenkins_volume_data }}:/var/jenkins_home"
