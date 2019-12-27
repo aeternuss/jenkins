@@ -9,7 +9,7 @@ jenkins(master-slave) + docker
 - Install docker on all nodes
 - create a user 'docker' and add to group 'docker' to run docker containters
 
-### Jenkins
+### Jenkins master
 
 Run jenkins using official docker image `jenkinsci/blueocean`.
 
